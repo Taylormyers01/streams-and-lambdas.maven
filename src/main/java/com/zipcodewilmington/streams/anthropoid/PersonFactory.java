@@ -3,9 +3,14 @@ package com.zipcodewilmington.streams.anthropoid;
 import com.zipcodewilmington.streams.tools.RandomUtils;
 import com.zipcodewilmington.streams.tools.StringUtils;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 /**
@@ -39,7 +44,14 @@ public final class PersonFactory {
      * @return - ArrayList of Person objects
      */ // TODO
     public List<Person> createPersonList(int listSize) {
-        return null;
+        /**
+         * //Verified this method works via testing, cleaning up code to reuse code from below
+         * List<Person> hold = Stream.generate(this::createRandomPerson)
+         *                 .limit(listSize)
+         *                 .collect(Collectors.toList());
+         *         return hold;
+         */
+        return createPersonStream(listSize).collect(Collectors.toList());
     }
 
 
@@ -48,7 +60,15 @@ public final class PersonFactory {
      * @return - Array of Person objects
      */ // TODO
     public Person[] createPersonArray(int arrayLength) {
-        return null;
+        /**
+         * //one way of getting this done - tested and verified it works just wanted
+         * //cleaner code
+         *  Supplier<Person> testing = this::createRandomPerson;
+         *         return IntStream.range(0, arrayLength)
+         *                 .mapToObj(i -> testing.get())
+         *                 .toArray(Person[]::new);
+         */
+       return createPersonStream(arrayLength).toArray(Person[]::new);
     }
 
 
@@ -59,6 +79,8 @@ public final class PersonFactory {
      * @return - Stream representation of collection of Person objects
      */ // TODO
     public Stream<Person> createPersonStream(int streamCount) {
-        return null;
+        Supplier<Person> testing = this::createRandomPerson;
+        return Stream.generate(this::createRandomPerson).limit(streamCount);
+
     }
 }

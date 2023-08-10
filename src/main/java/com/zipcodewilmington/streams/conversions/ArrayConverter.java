@@ -25,7 +25,7 @@ public final class ArrayConverter extends PersonConversionAgent<Person[]> {
 
     //TODO
     public List<Person> toList() {
-        return null;
+        return this.toStream().collect(Collectors.toList());
     }
 
     //TODO

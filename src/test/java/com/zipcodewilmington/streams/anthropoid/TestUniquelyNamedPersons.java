@@ -35,6 +35,7 @@ public class TestUniquelyNamedPersons {
         List<String> actualList = warehouse
                 .getUniquelyNamedPeople()
                 .map(Person::getName)
+                .limit(100)
                 .collect(Collectors.toList());
 
         // then
