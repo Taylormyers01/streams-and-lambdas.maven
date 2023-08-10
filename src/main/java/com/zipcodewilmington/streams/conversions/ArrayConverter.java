@@ -25,12 +25,12 @@ public final class ArrayConverter extends PersonConversionAgent<Person[]> {
 
     //TODO
     public List<Person> toList() {
-        return this.toStream().collect(Collectors.toList());
+        return Arrays.stream(super.objectSequence).collect(Collectors.toList());
     }
 
     //TODO
     public Stream<Person> toStream() {
-        return null;
+        return Arrays.stream(super.objectSequence);
     }
 
     @Override
